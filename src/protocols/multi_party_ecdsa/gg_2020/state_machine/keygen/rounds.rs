@@ -37,6 +37,7 @@ impl Round0 {
             party_keys.phase1_broadcast_phase3_proof_of_correct_key_proof_of_correct_h1h2();
 
         output.push(Msg {
+            round: 1,
             sender: self.party_i,
             receiver: None,
             body: bc1.clone(),
@@ -74,6 +75,7 @@ impl Round1 {
         O: Push<Msg<gg_2020::party_i::KeyGenDecommitMessage1>>,
     {
         output.push(Msg {
+            round: 2,
             sender: self.party_i,
             receiver: None,
             body: self.decom1.clone(),
@@ -143,6 +145,7 @@ impl Round2 {
             let encrypted_share =
                 Paillier::encrypt(enc_key_for_recipient, RawPlaintext::from(share.to_bigint()));
             output.push(Msg {
+                round: 3,
                 sender: self.party_i,
                 receiver: Some(i as u16 + 1),
                 body: (vss_result.0.clone(), encrypted_share.0.to_bytes()),
@@ -207,6 +210,7 @@ impl Round3 {
                 let raw_share: RawPlaintext<'_> = Paillier::decrypt(&self.keys.dk, c);
                 let share = Scalar::from_bigint(&raw_share.0.into_owned());
                 let _ = decrypted_input.push_msg(Msg {
+                    round: 4,
                     sender: i,
                     receiver: Some(self.party_i),
                     body: (vss, share),
@@ -231,6 +235,7 @@ impl Round3 {
             .map_err(ProceedError::Round3VerifyVssConstruct)?;
 
         output.push(Msg {
+            round: 4,
             sender: self.party_i,
             receiver: None,
             body: dlog_proof.clone(),

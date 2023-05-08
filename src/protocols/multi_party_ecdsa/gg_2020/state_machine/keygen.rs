@@ -202,6 +202,7 @@ impl StateMachine for Keygen {
                     })?;
                 store
                     .push_msg(Msg {
+                        round: current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -219,6 +220,7 @@ impl StateMachine for Keygen {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -236,6 +238,7 @@ impl StateMachine for Keygen {
                     })?;
                 store
                     .push_msg(Msg {
+                        round: current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -253,6 +256,7 @@ impl StateMachine for Keygen {
                     })?;
                 store
                     .push_msg(Msg {
+                        round: current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,

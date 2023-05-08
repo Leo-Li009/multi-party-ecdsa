@@ -268,6 +268,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -284,6 +285,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -300,6 +302,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -316,6 +319,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -332,6 +336,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -348,6 +353,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
+                        round:current_round,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -510,6 +516,7 @@ macro_rules! make_pushable {
         impl Push<Msg<$t>> for MsgQueue {
             fn push(&mut self, m: Msg<$t>) {
                 Vec::push(&mut self.0, Msg{
+                    round: 1,
                     sender: m.sender,
                     receiver: m.receiver,
                     body: OfflineProtocolMessage(OfflineM::$constructor(m.body))

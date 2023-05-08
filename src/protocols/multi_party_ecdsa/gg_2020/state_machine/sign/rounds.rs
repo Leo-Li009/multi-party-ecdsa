@@ -64,6 +64,8 @@ pub struct Round0 {
     pub local_key: LocalKey<Secp256k1>,
 }
 
+
+
 impl Round0 {
     pub fn proceed<O>(self, mut output: O) -> Result<Round1>
     where
@@ -85,6 +87,7 @@ impl Round0 {
         let m_a = MessageA::a(&sign_keys.k_i, &party_ek, &self.local_key.h1_h2_n_tilde_vec);
 
         output.push(Msg {
+            round:1,
             sender: self.i,
             receiver: None,
             body: (m_a.0.clone(), bc1.clone()),
@@ -106,6 +109,7 @@ impl Round0 {
     pub fn is_expensive(&self) -> bool {
         true
     }
+  
 }
 
 pub struct Round1 {
@@ -187,6 +191,7 @@ impl Round1 {
             .filter(|&j| j != self.i);
         for ((j, gamma_i), w_i) in party_indices.zip(m_b_gamma_vec).zip(m_b_w_vec) {
             output.push(Msg {
+                round:2,
                 sender: self.i,
                 receiver: Some(j),
                 body: (GammaI(gamma_i.clone()), WI(w_i.clone())),
@@ -233,6 +238,7 @@ pub struct Round2 {
 }
 
 impl Round2 {
+   
     pub fn proceed<O>(self, input_p2p: P2PMsgs<(GammaI, WI)>, mut output: O) -> Result<Round3>
     where
         O: Push<Msg<(DeltaI, TI, TIProof)>>, // TODO: unify TI and TIProof
@@ -293,6 +299,7 @@ impl Round2 {
         let sigma_i = self.sign_keys.phase2_sigma_i(&miu_vec, &self.ni_vec);
         let (t_i, l_i, t_i_proof) = SignKeys::phase3_compute_t_i(&sigma_i);
         output.push(Msg {
+            round:3,
             sender: self.i,
             receiver: None,
             body: (
@@ -348,6 +355,7 @@ pub struct Round3 {
 }
 
 impl Round3 {
+   
     pub fn proceed<O>(
         self,
         input: BroadcastMsgs<(DeltaI, TI, TIProof)>,
@@ -383,6 +391,7 @@ impl Round3 {
         }
 
         output.push(Msg {
+            round:4,
             sender: self.i,
             receiver: None,
             body: self.phase1_decom.clone(),
@@ -433,6 +442,7 @@ pub struct Round4 {
 }
 
 impl Round4 {
+  
     pub fn proceed<O>(
         self,
         decommit_round1: BroadcastMsgs<SignDecommitPhase1>,
@@ -481,6 +491,7 @@ impl Round4 {
         }
 
         output.push(Msg {
+            round:5,
             sender: self.i,
             receiver: None,
             body: (RDash(R_dash.clone()), phase5_proofs_vec.clone()),
@@ -527,6 +538,7 @@ pub struct Round5 {
 }
 
 impl Round5 {
+   
     pub fn proceed<O>(
         self,
         input: BroadcastMsgs<(RDash, Vec<PDLwSlackProof>)>,
@@ -577,6 +589,7 @@ impl Round5 {
         );
 
         output.push(Msg {
+            round:6,
             sender: self.i,
             receiver: None,
             body: (SI(S_i.clone()), HEGProof(homo_elgamal_proof.clone())),
@@ -615,6 +628,8 @@ pub struct Round6 {
 }
 
 impl Round6 {
+   
+    
     pub fn proceed(
         self,
         input: BroadcastMsgs<(SI, HEGProof)>,
