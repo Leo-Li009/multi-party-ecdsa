@@ -268,7 +268,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
-                        round:current_round,
+                        round:1,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -285,7 +285,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
-                        round:current_round,
+                        round:2,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -302,7 +302,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
-                        round:current_round,
+                        round:3,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -319,7 +319,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
-                        round:current_round,
+                        round:4,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -336,7 +336,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
-                        round:current_round,
+                        round:5,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
@@ -353,7 +353,7 @@ impl StateMachine for OfflineStage {
                     })?;
                 store
                     .push_msg(Msg {
-                        round:current_round,
+                        round:6,
                         sender: msg.sender,
                         receiver: msg.receiver,
                         body: m,
