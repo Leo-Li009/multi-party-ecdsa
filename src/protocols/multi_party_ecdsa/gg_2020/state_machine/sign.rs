@@ -516,7 +516,7 @@ macro_rules! make_pushable {
         impl Push<Msg<$t>> for MsgQueue {
             fn push(&mut self, m: Msg<$t>) {
                 Vec::push(&mut self.0, Msg{
-                    round: 1,
+                    round: m.round,
                     sender: m.sender,
                     receiver: m.receiver,
                     body: OfflineProtocolMessage(OfflineM::$constructor(m.body))
